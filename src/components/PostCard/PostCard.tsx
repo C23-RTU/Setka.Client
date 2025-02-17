@@ -8,6 +8,7 @@ import { ActionButton } from '../ui/PostActionButton/PostActionButton';
 
 import { PostHeader } from './PostHeader/PostHeader';
 import { cn } from '@/lib/utils/utils';
+import { getStaticImg } from '@/lib/helpers/getStaticImg.helper';
 
 type PostCardProps = {
     className?: string;
@@ -35,7 +36,9 @@ export function PostCard({ className, post }: PostCardProps) {
             </div>
             <div className="w-full h-full flex items-center justify-center ">
                 <Image
-                    src={'/img/eventbanner.jpg'}
+                    src={(post.postImages.length > 0 && getStaticImg(post.postImages[0])) || '/img/eventbanner.jpg'}
+                    blurDataURL='/img/eventbanner.jpg'
+                    placeholder='blur'
                     height={200}
                     width={600}
                     alt={'banner'}
