@@ -7,8 +7,9 @@ import { Header, HeaderTitle } from '@/hoc/Header/Header';
 import { MainContent } from '@/hoc/MainContent/MainContent';
 import { ClubCard } from '@/components/ClubComponents/ClubCard';
 import { IdCard, MessageSquare } from 'lucide-react';
+import Link from 'next/link';
 
-export default async function Profile({ user, userClubs }: { user: PersonDetailDTO; userClubs: ClubDetailDTO[] }) {
+export default function Profile({ user, userClubs }: { user: PersonDetailDTO; userClubs: ClubDetailDTO[] }) {
     console.log(userClubs);
 
     return (
@@ -30,7 +31,7 @@ export default async function Profile({ user, userClubs }: { user: PersonDetailD
                 </div>
                 <div className="flex flex-col gap-4">
                     <div className="flex flex-row gap-2">
-                        <MessageSquare size={20} />
+                        <MessageSquare size={20} className='w-[20px] h-[20px]' />
                         <p className="text-sm">{user.about || '...'}</p>
                     </div>
                     {/* <div className="flex flex-row gap-2">
@@ -38,14 +39,16 @@ export default async function Profile({ user, userClubs }: { user: PersonDetailD
                         <p className="text-sm font-geologica">zero@kostyazero.com</p>
                     </div> */}
                     <div className="flex flex-row gap-2">
-                        <IdCard size={20} />
-                        <p className="text-sm">{user.institute?.name || "Нет института"}</p>
+                        <IdCard className='w-[22px] h-[22px]'/>
+                        <p className="text-sm max-w-full overflow-hidden whitespace-nowrap text-ellipsis">{user.institute?.name || "Нет института"}</p>
                     </div>
                 </div>
                 <div className="flex flex-col gap-4">
                     <div className="flex flex-row justify-between">
-                        <p className="font-geologica font-bold text-lg">Клубы</p>
-                        {/* <p className="font-inter font-light text-primary">Показать все</p> */}
+                        <p className="font-geologica font-bold text-lg">Подписки</p>
+                        <Link href="/profile/clubs" className='font-inter font-light text-primary'>
+                            Показать все
+                        </Link>
                     </div>
                     {userClubs.length == 0 && <p className="text-neutral-400">Вы пока не подписаны ни на один клуб</p>}
                     {userClubs.map((club) => (
